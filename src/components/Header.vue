@@ -10,7 +10,6 @@
 </script>
 
 <style scoped>
-
 	.main-header {
 		text-align: center;
 		padding: 0 0 50px 0;
@@ -42,5 +41,4 @@
 	.subtitle {
 		font-size: 28px;
 	}
-
 </style>
