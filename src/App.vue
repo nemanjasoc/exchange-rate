@@ -3,7 +3,7 @@
     <div class="exchange-list">
       <app-header></app-header>
       <app-date-selection></app-date-selection>
-      <app-table-data v-for="rate in rates" v-bind:rate="rate" v-bind:key="rate"></app-table-data>
+      <app-table-data v-bind:rates="rates"></app-table-data>
     </div> 
   </div>
 </template>
@@ -17,16 +17,16 @@
     data () {
       return {
         rates: [
-          {"AED": 4.166908},
-          {"AFN": 85.977389},
-          {"ALL": 124.990436},
-          {"AMD": 552.362497},
-          {"ANG": 2.069983},
-          {"AOA": 358.030873},
-          {"ARS": 45.366045},
-          {"AUD": 1.596281},
-          {"AWG": 2.041962},
-          {"AZN": 1.934197}
+          { id: 1, name: "AED", value: 4.166908 },
+          { id: 2, name: "AFN", value: 85.977389 },
+          { id: 3, name: "ALL", value: 124.990436 },
+          { id: 4, name: "AMD", value: 552.362497 },
+          { id: 5, name: "ANG", value: 2.069983 },
+          { id: 6, name: "AOA", value: 358.030873 },
+          { id: 7, name: "ARS", value: 45.366045 },
+          { id: 8, name: "AUD", value: 1.596281 },
+          { id: 9, name: "AWG", value: 2.041962 },
+          { id: 10, name: "AZN", value: 1.934197 }
         ]
       };
     },

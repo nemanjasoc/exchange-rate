@@ -1,27 +1,25 @@
 <template>
 	<div id="main-content">
-	    <table>
-	    	<thead>
-	       		<tr>
-	       			<th>LANDMARK</th>
-	       			<th>VALUE</th>
-	       		</tr>
-	       </thead>
-	       <tbody>
-	       		<template v-for="(value, key) in rate">
-	      	 		<tr>
-	       				<td>{{ key }}</td>
-	       				<td>{{ value }}</td>
-	       			</tr>
-	       		</template>
-	   		</tbody>
-	    </table>
+	<table>
+		<thead>
+			<tr>
+				<th>LANDMARK</th>
+				<th>VALUE</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="rate in rates">
+				<td>{{ rate.name }}</td>
+				<td>{{ rate.value }}</td>
+			</tr>
+		</tbody>
+	</table>
 	</div>
 </template>
 
 <script>
 	export default {
-		props: ['rate']
+		props: ['rates']
 	}
 </script>
 
