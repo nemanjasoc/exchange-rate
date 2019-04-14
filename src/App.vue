@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="exchange-list">
-      <app-header></app-header>
+      <app-header v-bind:ratesObj="ratesObj"></app-header>
       <app-date-selection></app-date-selection>
-      <app-table-data v-bind:rates="rates"></app-table-data>
+      <app-table-data v-bind:ratesObj="ratesObj"></app-table-data>
     </div> 
   </div>
 </template>
@@ -16,19 +16,43 @@
   export default {
     data () {
       return {
-        rates: [
-          { id: 1, name: "AED", value: 4.166908 },
-          { id: 2, name: "AFN", value: 85.977389 },
-          { id: 3, name: "ALL", value: 124.990436 },
-          { id: 4, name: "AMD", value: 552.362497 },
-          { id: 5, name: "ANG", value: 2.069983 },
-          { id: 6, name: "AOA", value: 358.030873 },
-          { id: 7, name: "ARS", value: 45.366045 },
-          { id: 8, name: "AUD", value: 1.596281 },
-          { id: 9, name: "AWG", value: 2.041962 },
-          { id: 10, name: "AZN", value: 1.934197 }
+        ratesObj: [
+          {
+            baseCurrency: '',
+            date: '',
+            rates: []
+          }
         ]
-      };
+      }
+    },
+    mounted() {
+      this.$http.get('http://data.fixer.io/api/latest?access_key=fbdfefc8d303f3b0635e05f0e111e48c')
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+
+            var newObj = {};
+            newObj.rates = [];
+            newObj.baseCurrency = data.base;
+            newObj.date = data.date;
+
+            for (let property in data.rates) {
+              var obj = {};
+              obj.currency = property;
+              obj.value = data.rates[property];
+              newObj.rates.push(obj)
+            }
+
+            var randomRates = [];
+            for (var i = 0; i < 10; i++) {
+              var randomRate = newObj.rates[Math.floor(Math.random() * newObj.rates.length)];
+              randomRates.push(randomRate);
+            }
+            newObj.rates = randomRates;
+            console.log("newObj: ", newObj)
+            return this.ratesObj = newObj;
+          });
     },
     components: {
       appHeader: Header,
@@ -39,11 +63,6 @@
 </script>
 
 <style>
-
-  body {
-    
-  }
-
   #app {
     font-family: "Open Sans",sans-serif;
     width: 1200px;

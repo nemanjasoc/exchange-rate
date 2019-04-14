@@ -1,12 +1,15 @@
 <template>
 	<div class="main-header">
 		<h1 class="title">EXCHANGE RATES</h1>
-		<div class="subtitle">On the day</div>
+		<div class="subtitle">On the day {{ ratesObj.date }}</div>
+		<div class="baseCurrency">Base currency {{ ratesObj.baseCurrency }}</div>
 	</div>
 </template>
 
 <script>
-	
+	export default {
+		props: ['ratesObj']
+	}
 </script>
 
 <style scoped>
@@ -34,11 +37,17 @@
 		-webkit-transform: translate(-50%, 0);
 		transform: translate(-50%, 0);
 		bottom: 11px;
-		width: 235px;
+		width: 250px;
 		border-bottom: 2px solid #000;
 	}
 
 	.subtitle {
-		font-size: 28px;
+		font-size: 24px;
+	}
+
+	.baseCurrency {
+		font-size: 24px;
+		padding-top: 20px;
+		font-weight: 700;
 	}
 </style>
