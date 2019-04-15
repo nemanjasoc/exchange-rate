@@ -43,14 +43,17 @@
               obj.value = data.rates[property];
               newObj.rates.push(obj)
             }
-
             var randomRates = [];
             for (var i = 0; i < 10; i++) {
-              var randomRate = newObj.rates[Math.floor(Math.random() * newObj.rates.length)];
+              var index = Math.floor(Math.random() * newObj.rates.length);
+              console.log("index: ", index);
+              var randomRate = newObj.rates[index];
               randomRates.push(randomRate);
+              newObj.rates.splice(index, 1);
+              console.log("newObj.rates: ", newObj.rates);
             }
             newObj.rates = randomRates;
-            console.log("newObj: ", newObj)
+            console.log("newObj: ", newObj);
             return this.ratesObj = newObj;
           });
     },
