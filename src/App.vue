@@ -2,7 +2,7 @@
   <div id="app">
     <div class="exchange-list">
       <app-header v-bind:ratesObj="ratesObj"></app-header>
-      <app-date-selection></app-date-selection>
+      <app-date-selection @data-change="changeCurrencies"></app-date-selection>
       <app-table-data v-bind:ratesObj="ratesObj"></app-table-data>
     </div> 
   </div>
@@ -19,19 +19,26 @@
         ratesObj: [
           {
             baseCurrency: '',
-            date: '',
+            date:  '',
             rates: []
           }
         ]
       }
     },
-    mounted() {
-      this.$http.get('http://data.fixer.io/api/latest?access_key=fbdfefc8d303f3b0635e05f0e111e48c')
+    methods: {
+      latestOrNewDate(newDate) {
+        if (newDate == undefined) {
+          return this.$http.get(`http://data.fixer.io/api/latest?access_key=74a5598978663ad685c92efa8f446b8e`)
+        } 
+        return this.$http.get(`http://data.fixer.io/api/${newDate}?access_key=74a5598978663ad685c92efa8f446b8e`)
+      },
+      changeCurrencies(newDate) {
+        console.log("prosledjeni newDate: ", newDate)
+        this.latestOrNewDate(newDate)
           .then(response => {
             return response.json();
           })
           .then(data => {
-
             var newObj = {};
             newObj.rates = [];
             newObj.baseCurrency = data.base;
@@ -56,6 +63,10 @@
             console.log("newObj: ", newObj);
             return this.ratesObj = newObj;
           });
+      }
+    },
+    mounted() {
+      this.changeCurrencies();
     },
     components: {
       appHeader: Header,
