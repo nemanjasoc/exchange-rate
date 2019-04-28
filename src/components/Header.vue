@@ -1,14 +1,22 @@
 <template>
 	<div class="main-header">
 		<h1 class="title">EXCHANGE RATES</h1>
-		<div class="subtitle">On the day {{ ratesObj.date }}</div>
-		<div class="baseCurrency">Base currency {{ ratesObj.baseCurrency }}</div>
+		<div class="subtitle">On the day {{ dateOfRates }}</div>
+		<div class="baseCurrency">Base currency {{ baseCurrency }}</div>
 	</div>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex';
+
 	export default {
-		props: ['ratesObj']
+		computed: {
+			...mapGetters([
+				'baseCurrency',
+				'dateOfRates',
+				'rates'
+			])
+		}
 	}
 </script>
 

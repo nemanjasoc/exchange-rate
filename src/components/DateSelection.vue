@@ -16,12 +16,9 @@
 		},
 		methods: {
 			customFormatter() {
-				console.log("prosledjeni date u customFormatter: ", this.date)
-				console.log("formatiran u YYYY-MM-DD: ", moment(this.date).format('YYYY-MM-DD'))
 				return moment(this.date).format('YYYY-MM-DD');
 			},
 			showCurrenciesOnTheDate() {
-				console.log("showCurrenciesOnTheDate: ", this.customFormatter())
 				this.$emit("data-change", this.customFormatter());
 			}			  
 		},

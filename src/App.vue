@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="exchange-list">
-      <app-header v-bind:ratesObj="ratesObj"></app-header>
+      <app-header></app-header>
       <app-date-selection @data-change="changeCurrencies"></app-date-selection>
-      <app-table-data v-bind:ratesObj="ratesObj"></app-table-data>
+      <app-table-data></app-table-data>
     </div> 
   </div>
 </template>
@@ -12,29 +12,21 @@
   import Header from './components/Header.vue';
   import DateSelection from './components/DateSelection.vue';
   import TableData from './components/TableData.vue';
+  import { mapGetters } from 'vuex';
 
   export default {
-    data () {
-      return {
-        ratesObj: [
-          {
-            baseCurrency: '',
-            date:  '',
-            rates: []
-          }
-        ]
-      }
-    },
+    computed: {
+      ...mapGetters([
+        'baseCurrency',
+        'dateOfRates',
+        'rates'
+      ])
+    },  
     methods: {
-      latestOrNewDate(newDate) {
-        if (newDate == undefined) {
-          return this.$http.get(`http://data.fixer.io/api/latest?access_key=74a5598978663ad685c92efa8f446b8e`)
-        } 
-        return this.$http.get(`http://data.fixer.io/api/${newDate}?access_key=74a5598978663ad685c92efa8f446b8e`)
-      },
       changeCurrencies(newDate) {
-        console.log("prosledjeni newDate: ", newDate)
-        this.latestOrNewDate(newDate)
+        console.log("prosledjeno newDate: ", newDate)
+        var helper = newDate === undefined ? 'latest' : newDate;
+        this.$http.get(`http://data.fixer.io/api/${helper}?access_key=74a5598978663ad685c92efa8f446b8e`)
           .then(response => {
             return response.json();
           })
@@ -53,14 +45,11 @@
             var randomRates = [];
             for (var i = 0; i < 10; i++) {
               var index = Math.floor(Math.random() * newObj.rates.length);
-              console.log("index: ", index);
               var randomRate = newObj.rates[index];
               randomRates.push(randomRate);
               newObj.rates.splice(index, 1);
-              console.log("newObj.rates: ", newObj.rates);
             }
             newObj.rates = randomRates;
-            console.log("newObj: ", newObj);
             return this.ratesObj = newObj;
           });
       }

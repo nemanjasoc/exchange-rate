@@ -8,8 +8,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="rate in ratesObj.rates">
-				<div class="currency-landmark">{{ rate.currency }}</div>
+			<tr v-for="rate in rates">
+				<div class="currency-landmark">{{ baseCurrency }}</div>
 				<div class="currency-value">{{ rate.value }}</div>
 			</tr>
 		</tbody>
@@ -18,8 +18,16 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex';
+
 	export default {
-		props: ['ratesObj']
+		computed: {
+			...mapGetters([
+				'baseCurrency',
+				'dateOfRates',
+				'rates'
+			])
+		}
 	}
 </script>
 
