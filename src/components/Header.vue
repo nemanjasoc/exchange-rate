@@ -14,7 +14,6 @@
 			...mapGetters([
 				'baseCurrency',
 				'dateOfRates',
-				'rates'
 			])
 		}
 	}

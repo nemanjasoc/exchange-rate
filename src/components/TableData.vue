@@ -9,7 +9,7 @@
 		</thead>
 		<tbody>
 			<tr v-for="rate in rates">
-				<div class="currency-landmark">{{ baseCurrency }}</div>
+				<div class="currency-landmark">{{ rate.currency }}</div>
 				<div class="currency-value">{{ rate.value }}</div>
 			</tr>
 		</tbody>
@@ -24,7 +24,6 @@
 		computed: {
 			...mapGetters([
 				'baseCurrency',
-				'dateOfRates',
 				'rates'
 			])
 		}

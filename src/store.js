@@ -5,19 +5,29 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
 	state: {
-		baseCurrency: '',
-		date:  '',
-		rates: []	
+		ratesObj: [
+			{
+			baseCurrency: '',
+			date: '',
+			rates: []
+			}
+		]
 	},
 	getters: {
 		baseCurrency: function (state) {
-			return state.baseCurrency;
+			return state.ratesObj.baseCurrency;
 		},
 		dateOfRates: function (state) {
-			return state.date;
+			return state.ratesObj.date;
 		},
 		rates: function (state) {
-			return state.rates;
+			return state.ratesObj.rates;
+		}
+	},
+	mutations: {
+		setRatesObj: function(state, payload) {
+			state.ratesObj.date = payload.newDate;
+			state.ratesObj = payload.ratesObj;
 		}
 	}
 });

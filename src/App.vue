@@ -12,16 +12,8 @@
   import Header from './components/Header.vue';
   import DateSelection from './components/DateSelection.vue';
   import TableData from './components/TableData.vue';
-  import { mapGetters } from 'vuex';
 
   export default {
-    computed: {
-      ...mapGetters([
-        'baseCurrency',
-        'dateOfRates',
-        'rates'
-      ])
-    },  
     methods: {
       changeCurrencies(newDate) {
         console.log("prosledjeno newDate: ", newDate)
@@ -50,7 +42,7 @@
               newObj.rates.splice(index, 1);
             }
             newObj.rates = randomRates;
-            return this.ratesObj = newObj;
+            this.$store.commit('setRatesObj', { ratesObj: newObj, newDate: newDate });
           });
       }
     },
