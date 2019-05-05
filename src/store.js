@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
+	plugins: [createPersistedState()],
 	state: {
 		ratesObj: [
 			{
@@ -26,8 +28,8 @@ export const store = new Vuex.Store({
 	},
 	mutations: {
 		setRatesObj: function(state, payload) {
-			state.ratesObj.date = payload.newDate;
-			state.ratesObj = payload.ratesObj;
+			console.log("payload prosledjeno: ", payload)
+			state.ratesObj = payload;
 		}
 	}
 });

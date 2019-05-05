@@ -1,6 +1,6 @@
 <template>
 	<div class="date-selection">
-		<app-datepicker v-model="date" @input="showCurrenciesOnTheDate" :format="customFormatter" placeholder="choose date"></app-datepicker>
+		<app-datepicker v-model="date" @input="showCurrenciesOnTheDate" :format="customFormatter"></app-datepicker>
 	</div>
 </template>
 
