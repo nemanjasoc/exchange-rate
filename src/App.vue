@@ -17,7 +17,6 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: top;
-    font-family: "Lato";
   }
 
   #app {

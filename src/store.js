@@ -13,7 +13,8 @@ export default new Vuex.Store({
 			date: '',
 			rates: []
 			}
-		]
+		],
+		currencies:[]
 	},
 	getters: {
 		baseCurrency: function (state) {
@@ -24,12 +25,19 @@ export default new Vuex.Store({
 		},
 		rates: function (state) {
 			return state.ratesObj.rates;
+		},
+		allCurrencyNames: function (state) {
+			return state.currencies;
 		}
 	},
 	mutations: {
 		setRatesObj: function(state, payload) {
 			console.log("payload prosledjeno: ", payload)
 			state.ratesObj = payload;
+		},
+		setAllCurrencyNames: function (state, payload) {
+			console.log("prosledjeni payload u setAllCurrencyNames: ", payload)
+			state.currencies = payload;
 		}
 	}
 });

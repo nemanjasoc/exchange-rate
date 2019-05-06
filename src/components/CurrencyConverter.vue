@@ -5,10 +5,6 @@
 		</div>
 		<h1>Currency Converter</h1>
 		<div class="currency-wrapper">
-			<div class="buttons">
-				<button type="button" class="buy">Buy EUR</button>
-				<button type="button" class="sell">Sell EUR</button>
-			</div>
 			<div class="inputs">
 				<div class="amount">
 					<label>Amount</label>
@@ -16,22 +12,24 @@
 				</div>
 				<div class="from">
 					<label>From</label>
-					<select>
-						<option value='currency1'>jnkjcn</option>
-						<option value='currency1'>jnkjcn</option>
-						<option value='currency1'>jnkjcn</option>
-						<option value='currency1'>jnkjcn</option>
+					<select v-if="show">
+						<option v-for="currencyName in allCurrencyNames" value='currencyName'>{{ currencyName }}</option>
+					</select>
+					<select v-else>
+						<option value='baseCurrency'>{{ baseCurrency }}</option>
 					</select>
 				</div>
+				<div class="switch" @click="show = !show"><i class="fas fa-exchange-alt"></i></div>
 				<div class="to">
 					<label>To</label>
-					<select>
-						<option value='currency2'>efqdfww</option>
-						<option value='currency2'>efqdfww</option>
-						<option value='currency2'>efqdfww</option>
-						<option value='currency2'>efqdfww</option>
+					<select v-if="show">
+						<option value='baseCurrency'>{{ baseCurrency }}</option>
+					</select>
+					<select v-else>
+						<option v-for="currencyName in allCurrencyNames" value='currencyName'>{{ currencyName }}</option>
 					</select>
 				</div>
+				<button type="button" class="send"><i class="fas fa-angle-right"></i></button>
 			</div>
 			<div class="result">
 				<div class="amount-from">Amount from = </div>
@@ -42,15 +40,36 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				from: '',
-				to: '',
-				amount: '1'				
-			}
+import { mapGetters } from 'vuex';
+
+export default {
+	computed: {
+		...mapGetters([
+			'allCurrencyNames',
+			'baseCurrency'
+		])
+	},
+	data() {
+		return {
+			amount: '1',
+			show: true
 		}
+	},
+	mounted() {
+		this.$http.get(`http://data.fixer.io/api/latest?access_key=74a5598978663ad685c92efa8f446b8e`)
+			.then(response => {
+			return response.json();
+		})
+		.then(data => {
+			var allCurrencyNames = [];
+			for (let property in data.rates) {
+				allCurrencyNames.push(property);
+			}
+			console.log('allCurrencyNames: ', allCurrencyNames)
+			this.$store.commit('setAllCurrencyNames', allCurrencyNames);
+      	});
 	}
+}
 </script>
 
 <style scoped>
@@ -104,7 +123,7 @@
 	}
 
 	.currency-wrapper {
-		max-width: 900px;
+		max-width: 800px;
 		width: 100%;
 		background-color: #282537;
 		opacity: 0.9;
@@ -113,54 +132,12 @@
 		margin: 0 auto;
 	}
 
-	.select-country{
-		width: 20%;
-		height: 20%;
-		background: white;
-	}
-
-	.buttons {
-		display: flex;
-		justify-content: center;
-		padding-top: 50px;
-	}
-
-	.buy {
-		font-size: 15px;
-		margin-right: 25px;
-		width: 120px;
-		height: 50px;
-		border-radius: 15px 0px 0px 15px;
-		cursor: pointer;
-		background-color: #fbbf08;
-		color: white;
-		font-weight: 600;
-	}
-
-	.buy:active {
-		background-color: #2196f3;
-	}
-
-	.sell {
-		font-size: 15px;
-		margin-left: 25px;
-		width: 120px;
-		height: 50px;
-		border-radius: 0px 15px 15px 0px;
-		cursor: pointer;
-		background-color: #2196f3;
-		color: white;
-		font-weight: 600;
-	}
-
-	.sell:active {
-		background-color: #fbbf08;
-	}
 
 	.inputs {
 		display: flex;
-		justify-content: space-around;
 		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
 		padding-top: 50px;
 	}
 
@@ -168,6 +145,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
+		padding-right: 15px;
 	}
 
 	label {
@@ -186,6 +164,14 @@
 		padding-left: 10px;
 	}
 
+	.from {
+		
+	}
+
+	.to {
+		padding-right: 15px;
+	}
+
 	select {
 		max-width: 250px;
 		width: 100%;
@@ -193,12 +179,57 @@
 		border-radius: 10px;
 		font-size: 30px;
 		padding: 0px 10px;
+		cursor: pointer;
+	}
+
+	.switch {
+		font-size: 25px;
+		cursor: pointer;
+		color: white;
+		width: 50px;
+		height: 50px;
+		margin-top: 23px;
+		text-align: center;
+		align-items: center;
+		display: flex;
+		justify-content: center;
+	}
+
+	.switch:active {
+		cursor: pointer;
+		width: 50px;
+		height: 50px;
+		border: 1px solid #2196f3;
+		border-radius: 10px;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+	}
+
+	.send {
+		font-size: 30px;
+		width: 50px;
+		height: 50px;
+		border-radius: 10px;
+		cursor: pointer;
+		background-color: #fbbf08;
+		color: blue;
+		font-weight: 600;
+		margin-top: 23px;
+	}
+
+	.send:active {
+		background-color: #2196f3;
+		color: white;
+		cursor: pointer;
 	}
 
 	.result {
 		display: flex;
 		justify-content: center;
-		flex-direction: column;
+		align-items: center;
+		flex-wrap: wrap;
 		padding: 50px 0px;
 	}
 
