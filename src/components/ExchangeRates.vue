@@ -19,29 +19,33 @@ export default {
 
 		this.$http.get(`http://data.fixer.io/api/${helper}?access_key=74a5598978663ad685c92efa8f446b8e`)
 			.then(response => {
-			return response.json();
+				return response.json();
 		})
 		.then(data => {
-			var newObj = {};
-			newObj.rates = [];
-			newObj.baseCurrency = data.base;
-			newObj.date = data.date;
+			var randomRatesObj = {};
+			randomRatesObj.rates = [];
+			var allRates = [];
+			randomRatesObj.baseCurrency = data.base;
+			randomRatesObj.date = data.date;
 
 			for (let property in data.rates) {
 				var obj = {};
 				obj.currency = property;
 				obj.value = data.rates[property];
-				newObj.rates.push(obj)
+				randomRatesObj.rates.push(obj);
+				allRates.push(obj);
 			}
+			this.$store.commit('setAllRates', allRates);
+
 			var randomRates = [];
 			for (var i = 0; i < 10; i++) {
-				var index = Math.floor(Math.random() * newObj.rates.length);
-				var randomRate = newObj.rates[index];
+				var index = Math.floor(Math.random() * randomRatesObj.rates.length);
+				var randomRate = randomRatesObj.rates[index];
 				randomRates.push(randomRate);
-				newObj.rates.splice(index, 1);
+				randomRatesObj.rates.splice(index, 1);
 			}
-			newObj.rates = randomRates;
-			this.$store.commit('setRatesObj', newObj);
+			randomRatesObj.rates = randomRates;
+			this.$store.commit('setRandomRatesObj', randomRatesObj);
 			});
 		}
 	},

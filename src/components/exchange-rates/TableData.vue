@@ -9,7 +9,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="rate in rates">
+					<tr v-for="rate in randomRates">
 						<div class="currency-landmark">{{ rate.currency }}</div>
 						<div class="currency-value">{{ rate.value }}</div>
 					</tr>
@@ -25,7 +25,7 @@
 	export default {
 		computed: {
 			...mapGetters([
-				'rates'
+				'randomRates'
 			])
 		}
 	}

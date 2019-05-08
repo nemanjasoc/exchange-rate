@@ -7,14 +7,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	plugins: [createPersistedState()],
 	state: {
-		ratesObj: [
-			{
+		ratesObj: {
 			baseCurrency: '',
 			date: '',
 			rates: []
+		},
+		allRates:[
+			{
+			currency: '',
+			value: ''
 			}
-		],
-		currencies:[]
+		]
 	},
 	getters: {
 		baseCurrency: function (state) {
@@ -23,21 +26,21 @@ export default new Vuex.Store({
 		dateOfRates: function (state) {
 			return state.ratesObj.date;
 		},
-		rates: function (state) {
+		randomRates: function (state) {
 			return state.ratesObj.rates;
 		},
-		allCurrencyNames: function (state) {
-			return state.currencies;
+		allRates: function (state) {
+			return state.allRates;
 		}
 	},
 	mutations: {
-		setRatesObj: function(state, payload) {
+		setAllRates: function (state, payload) {
+			console.log("prosledjeni payload u setAllRates: ", payload)
+			state.allRates = payload;
+		},
+		setRandomRatesObj: function(state, payload) {
 			console.log("payload prosledjeno: ", payload)
 			state.ratesObj = payload;
-		},
-		setAllCurrencyNames: function (state, payload) {
-			console.log("prosledjeni payload u setAllCurrencyNames: ", payload)
-			state.currencies = payload;
 		}
 	}
 });

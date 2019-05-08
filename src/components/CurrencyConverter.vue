@@ -13,7 +13,7 @@
 				<div class="from">
 					<label>From</label>
 					<select v-if="show">
-						<option v-for="currencyName in allCurrencyNames" value='currencyName'>{{ currencyName }}</option>
+						<option v-for="rate in allRates" value='rate'>{{ rate.currency }}</option>
 					</select>
 					<select v-else>
 						<option value='baseCurrency'>{{ baseCurrency }}</option>
@@ -25,15 +25,15 @@
 					<select v-if="show">
 						<option value='baseCurrency'>{{ baseCurrency }}</option>
 					</select>
-					<select v-else>
-						<option v-for="currencyName in allCurrencyNames" value='currencyName'>{{ currencyName }}</option>
+					<select v-else v-model="to">
+						<option v-for="rate in allRates" value='rate'>{{ rate.currency }}</option>
 					</select>
 				</div>
-				<button type="button" class="send"><i class="fas fa-angle-right"></i></button>
+				<button type="button" class="send" @click.prevent="submitted"><i class="fas fa-angle-right"></i></button>
 			</div>
-			<div class="result">
-				<div class="amount-from">Amount from = </div>
-				<div class="result-to">Result to</div>
+			<div class="result" v-if="isSubmitted">
+				<div class="buy-eur" v-if="show">Result = {{ amount / from }}</div>
+				<div class="sell-eur" v-else>Result = {{ amount * to }}</div>
 			</div>
 		</div>
 	</div>
@@ -45,29 +45,21 @@ import { mapGetters } from 'vuex';
 export default {
 	computed: {
 		...mapGetters([
-			'allCurrencyNames',
-			'baseCurrency'
+			'baseCurrency',
+			'allRates'
 		])
 	},
 	data() {
 		return {
 			amount: '1',
-			show: true
+			show: true,
+			isSubmitted: false
 		}
 	},
-	mounted() {
-		this.$http.get(`http://data.fixer.io/api/latest?access_key=74a5598978663ad685c92efa8f446b8e`)
-			.then(response => {
-			return response.json();
-		})
-		.then(data => {
-			var allCurrencyNames = [];
-			for (let property in data.rates) {
-				allCurrencyNames.push(property);
-			}
-			console.log('allCurrencyNames: ', allCurrencyNames)
-			this.$store.commit('setAllCurrencyNames', allCurrencyNames);
-      	});
+	methods: {
+		submitted() {
+			this.isSubmitted = true;
+		}
 	}
 }
 </script>
@@ -132,13 +124,13 @@ export default {
 		margin: 0 auto;
 	}
 
-
 	.inputs {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
 		padding-top: 50px;
+		padding-bottom: 50px;
 	}
 
 	.amount {
@@ -230,15 +222,15 @@ export default {
 		justify-content: center;
 		align-items: center;
 		flex-wrap: wrap;
-		padding: 50px 0px;
+		padding-bottom: 50px;
 	}
 
-	.amount-from {
+	.sell-eur {
 		color: white;
 		font-size: 30px;
 	}
 
-	.result-to {
+	.buy-eur {
 		color: white;
 		font-size: 50px;
 	}
