@@ -11,7 +11,7 @@
 				<tbody>
 					<tr v-for="rate in randomRates">
 						<div class="currency-landmark">{{ rate.currency }}</div>
-						<div class="currency-value">{{ rate.value }}</div>
+						<div class="currency-value">{{ rate.value.toFixed(4) }}</div>
 					</tr>
 				</tbody>
 			</table>
@@ -20,15 +20,15 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-	export default {
-		computed: {
-			...mapGetters([
-				'randomRates'
-			])
-		}
+export default {
+	computed: {
+		...mapGetters([
+			'randomRates'
+		])
 	}
+}
 </script>
 
 <style scoped>
@@ -57,15 +57,9 @@
 		width: 100%;
 		font-size: 1rem;
 		color: white;
+		margin-bottom: 20px;
 	}
-	/*
-	th, td {
-		padding: 12px;
-		text-align: left;
-		border-bottom: 1px solid #ddd;
-		width: 50%;
-	}
-	*/
+
 	th {
 		border-bottom: 4px solid #ddd;
 		color: #888;
@@ -84,5 +78,4 @@
 	.currency-landmark {
 		font-weight: 700;
 	}
-
 </style>

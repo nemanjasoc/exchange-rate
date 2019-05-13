@@ -12,28 +12,28 @@
 				</div>
 				<div class="from">
 					<label>From</label>
-					<select v-if="show">
-						<option v-for="rate in allRates" value='rate'>{{ rate.currency }}</option>
+					<select v-if="multiply" v-model="from">
+						<option v-for="rate in allRates" :value='rate.value'>{{ rate.currency }}</option>
 					</select>
 					<select v-else>
 						<option value='baseCurrency'>{{ baseCurrency }}</option>
 					</select>
 				</div>
-				<div class="switch" @click="show = !show"><i class="fas fa-exchange-alt"></i></div>
+				<div class="switch" @click="multiply = !multiply"><i class="fas fa-exchange-alt"></i></div>
 				<div class="to">
 					<label>To</label>
-					<select v-if="show">
+					<select v-if="multiply">
 						<option value='baseCurrency'>{{ baseCurrency }}</option>
 					</select>
 					<select v-else v-model="to">
-						<option v-for="rate in allRates" value='rate'>{{ rate.currency }}</option>
+						<option v-for="rate in allRates" :value='rate.value'>{{ rate.currency }}</option>
 					</select>
 				</div>
-				<button type="button" class="send" @click.prevent="submitted"><i class="fas fa-angle-right"></i></button>
+				<button type="button" class="send" @click="submit"><i class="fas fa-angle-right"></i></button>
 			</div>
 			<div class="result" v-if="isSubmitted">
-				<div class="buy-eur" v-if="show">Result = {{ amount / from }}</div>
-				<div class="sell-eur" v-else>Result = {{ amount * to }}</div>
+				<div class="buy-eur" v-if="multiply">{{ submit() }} EUR</div>
+				<div class="sell-eur" v-else>{{ amount }} EUR = {{ submit() }}</div>
 			</div>
 		</div>
 	</div>
@@ -52,13 +52,25 @@ export default {
 	data() {
 		return {
 			amount: '1',
-			show: true,
+			to: '',
+			from: '',
+			multiply: true,
 			isSubmitted: false
 		}
 	},
 	methods: {
-		submitted() {
+		submit() {
+			console.log('submit called to, from: ', this.from, this.to);
 			this.isSubmitted = true;
+			var result; 
+			if (this.multiply) {
+				result = (this.amount / this.from).toFixed(4);
+			}
+			else {
+				result = (this.amount * this.to).toFixed(4);
+			}
+			console.log("result: ", result)
+			return result;
 		}
 	}
 }
@@ -85,7 +97,7 @@ export default {
 	}
 
 	.exchange-rates a:hover {
-		color: white;
+		color: #9e0144;
 	}
 
 	.exchange-rates a:before {
@@ -93,7 +105,7 @@ export default {
 		position: absolute;
 		width: 100%;
 		height: 2px;
-		top: 20px;
+		top: 26px;
 		bottom: 0;
 		left: 0;
 		background-color: white;
@@ -156,10 +168,6 @@ export default {
 		padding-left: 10px;
 	}
 
-	.from {
-		
-	}
-
 	.to {
 		padding-right: 15px;
 	}
@@ -173,7 +181,8 @@ export default {
 		padding: 0px 10px;
 		cursor: pointer;
 	}
-
+	
+	.switch:active,
 	.switch {
 		font-size: 25px;
 		cursor: pointer;
@@ -188,15 +197,8 @@ export default {
 	}
 
 	.switch:active {
-		cursor: pointer;
-		width: 50px;
-		height: 50px;
 		border: 1px solid #2196f3;
 		border-radius: 10px;
-		display: flex;
-		justify-content: center;
-		text-align: center;
-		align-items: center;
 	}
 
 	.send {
@@ -224,13 +226,9 @@ export default {
 		flex-wrap: wrap;
 		padding-bottom: 50px;
 	}
-
+	
+	.buy-eur,
 	.sell-eur {
-		color: white;
-		font-size: 30px;
-	}
-
-	.buy-eur {
 		color: white;
 		font-size: 50px;
 	}

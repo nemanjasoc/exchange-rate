@@ -10,16 +10,16 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-	export default {
-		computed: {
-			...mapGetters([
-				'baseCurrency',
-				'dateOfRates',
-			])
-		}
+export default {
+	computed: {
+		...mapGetters([
+			'baseCurrency',
+			'dateOfRates',
+		])
 	}
+}
 </script>
 
 <style scoped>
@@ -36,7 +36,7 @@
 	}
 
 	.currency-converter a:hover {
-		color: white;
+		color: #9e0144;
 	}
 
 	.currency-converter a:before {
@@ -44,7 +44,7 @@
 		position: absolute;
 		width: 100%;
 		height: 2px;
-		top: 20px;
+		top: 26px;
 		bottom: 0;
 		left: 0;
 		background-color: white;
@@ -89,16 +89,15 @@
 		width: 250px;
 		border-bottom: 2px solid white;
 	}
-
+	
+	.baseCurrency,
 	.subtitle {
 		font-size: 24px;
 		color: white;
 	}
 
 	.baseCurrency {
-		font-size: 24px;
 		padding-top: 20px;
 		font-weight: 700;
-		color: white;
 	}
 </style>
