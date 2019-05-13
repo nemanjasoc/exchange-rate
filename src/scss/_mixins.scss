@@ -1,0 +1,80 @@
+@mixin flexbox-center {
+	display: flex;
+	justify-content: center;
+}
+
+@mixin transfrom-title {
+	-webkit-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+}
+
+@mixin link {
+	font-size: $base-font-size;
+	font-weight: $base-font-weight - 100;
+	color: #888;
+	position: relative;
+	text-decoration: none;
+}
+
+@mixin before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	top: 26px;
+	bottom: 0;
+	left: 0;
+	background-color: white;
+	visibility: hidden;
+	-webkit-transform: scaleX(0);
+	transform: scaleX(0);
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+}
+
+@mixin hover-before {
+	visibility: visible;
+	-webkit-transform: scaleX(1);
+	transform: scaleX(1);
+}
+
+@mixin table-data-style {
+	display: table-cell;
+	padding: $base-all-paddings;
+	border-bottom: 1px solid #e9e9e9;
+	text-align: center;
+}
+
+@mixin color-and-font-size {
+	font-size: $base-font-size + 4;
+	color: white;
+}
+
+@mixin base-width {
+	max-width: 800px;
+	width: 100%;
+}
+
+@mixin switch-style {
+	font-size: 25px;
+	cursor: pointer;
+	color: white;
+	width: 50px;
+	height: 50px;
+	margin-top: 23px;
+	text-align: center;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+@mixin buy-and-sell-eur-style {
+	color: white;
+	font-size: 50px;
+}
+
+@mixin wrapper-style {
+	background-color: #282537;
+	opacity: 0.9;
+	border-radius: $base-border-radius;
+}

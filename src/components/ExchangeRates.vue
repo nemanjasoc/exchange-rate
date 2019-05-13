@@ -60,8 +60,10 @@ export default {
 }
 </script>
 
-<style scoped>
-	.exchange-list {
-		padding: 50px 0;
-	}
+<style lang="scss" scoped>
+@import 'src/scss/variables';
+
+.exchange-list {
+	padding: $base-padding 0;
+}
 </style>

@@ -22,82 +22,62 @@ export default {
 }
 </script>
 
-<style scoped>
-	.currency-converter {
-		margin-bottom: 20px;
-	}
+<style lang="scss" scoped>
+@import 'src/scss/variables';
+@import 'src/scss/mixins';
 
-	.currency-converter a {
-		font-size: 20px;
-		font-weight: 600;
-		color: #888;
-		position: relative;
-		text-decoration: none;
-	}
+.currency-converter {
+	margin-bottom: $base-margin;
+}
 
-	.currency-converter a:hover {
+.currency-converter a {
+	@include link;
+
+	&:hover {
 		color: #9e0144;
 	}
 
-	.currency-converter a:before {
-		content: "";
-		position: absolute;
-		width: 100%;
-		height: 2px;
-		top: 26px;
-		bottom: 0;
-		left: 0;
-		background-color: white;
-		visibility: hidden;
-		-webkit-transform: scaleX(0);
-		transform: scaleX(0);
-		-webkit-transition: all 0.3s ease-in-out 0s;
-		transition: all 0.3s ease-in-out 0s;
+	&:before {
+		@include before;
 	}
 
-	.currency-converter a:hover:before {
-		visibility: visible;
-		-webkit-transform: scaleX(1);
-		transform: scaleX(1);
+	&:hover:before {
+		@include hover-before;
 	}
+}
 
-	.main-header {
-		text-align: center;
-		padding: 0 0 50px 0;
-		margin: 0 auto;
-		width: 90%;
-		max-width: 900px;
-	}
+.main-header {
+	text-align: center;
+	padding: $base-padding - 10 0;
+}
 
-	.title {
-		font-size: 48px;
-		font-weight: 700;
-		position: relative;
-		padding-bottom: 20px;
-		margin: 0;
-		letter-spacing: 2px;
-		color: white;
-	}
+.title {
+	font-size: $base-font-size + 18;
+	font-weight: $base-font-weight;
+	position: relative;
+	padding-bottom: $base-padding - 30;
+	margin: 0;
+	letter-spacing: 2px;
+	color: white;
 
-	.title::after {
+	&::after {
 		content: '';
 		position: absolute;
+		@include transfrom-title;
 		left: 50%;
-		-webkit-transform: translate(-50%, 0);
-		transform: translate(-50%, 0);
 		bottom: 11px;
 		width: 250px;
 		border-bottom: 2px solid white;
 	}
-	
-	.baseCurrency,
-	.subtitle {
-		font-size: 24px;
-		color: white;
-	}
+}
 
-	.baseCurrency {
-		padding-top: 20px;
-		font-weight: 700;
-	}
+.subtitle {
+	@include color-and-font-size;
+}
+
+.baseCurrency {
+	@include color-and-font-size;
+	padding-top:$base-padding - 30;
+	font-weight: $base-font-weight;
+}
 </style>

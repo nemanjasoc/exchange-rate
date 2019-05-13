@@ -32,9 +32,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import 'src/scss/mixins';
+
 .date-selection {
-	display: flex;
-	justify-content: center;
+	@include flexbox-center;
 }
 </style>

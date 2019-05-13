@@ -76,160 +76,129 @@ export default {
 }
 </script>
 
-<style scoped>
-	.currency-converter-page {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		text-align: center;
-	}
+<style lang="scss" scoped>
+@import 'src/scss/mixins';
+@import 'src/scss/variables';
 
-	.exchange-rates {
-		padding-top: 50px;
-	}
+.currency-converter-page {
+	@include flexbox-center; 
+	flex-direction: column;
+	text-align: center;
+}
 
-	.exchange-rates a {
-		font-size: 20px;
-		font-weight: 600;
-		color: #888;
-		position: relative;
-		text-decoration: none;
-	}
+.exchange-rates {
+	padding-top: $base-padding;
+}
 
-	.exchange-rates a:hover {
+.exchange-rates a {
+	@include link;
+
+	&:hover {
 		color: #9e0144;
 	}
 
-	.exchange-rates a:before {
-		content: "";
-		position: absolute;
-		width: 100%;
-		height: 2px;
-		top: 26px;
-		bottom: 0;
-		left: 0;
-		background-color: white;
-		visibility: hidden;
-		-webkit-transform: scaleX(0);
-		transform: scaleX(0);
-		-webkit-transition: all 0.3s ease-in-out 0s;
-		transition: all 0.3s ease-in-out 0s;
+	&:before {
+		@include before;
 	}
 
-	.exchange-rates a:hover:before {
-		visibility: visible;
-		-webkit-transform: scaleX(1);
-		transform: scaleX(1);
+	&:hover:before {
+		@include hover-before;
 	}
+}
 
-	h1 {
-		color: white;
-	}
+h1 {
+	color: white;
+}
 
-	.currency-wrapper {
-		max-width: 800px;
-		width: 100%;
-		background-color: #282537;
-		opacity: 0.9;
-		border-radius: 15px;
-		overflow: hidden;
-		margin: 0 auto;
-	}
+.currency-wrapper {
+	max-width: 800px;
+	width: 80%;
+	padding: 0 10px;
+	@include wrapper-style;
+	margin: 0 auto;
+}
 
-	.inputs {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-		padding-top: 50px;
-		padding-bottom: 50px;
-	}
+.inputs {
+	@include flexbox-center;
+	flex-wrap: wrap;
+	align-items: center;
+	padding-top: $base-padding;
+	padding-bottom: $base-padding;
+}
 
-	.amount {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		padding-right: 15px;
-	}
+.amount {
+	display: flex;
+	flex-direction: column;
+	padding-right: $base-padding - 35;
+}
 
-	label {
-		display: flex;
-		color: white;
-		font-size: 17px;
-		margin-bottom: 5px;
-	}
+label {
+	display: flex;
+	color: white;
+	font-size: $base-font-size - 3;
+	margin-bottom: $base-margin - 15;
+}
 
-	input[type=text] {
-		max-width: 250px;
-		width: 100%;
-		height: 42px;
-		border-radius: 10px;
-		font-size: 30px;
-		padding-left: 10px;
-	}
+input[type=text] {
+	max-width: 250px;
+	width: 100%;
+	height: 42px;
+	border-radius: $base-border-radius - 5;
+	font-size: $base-font-size + 10;
+	padding-left: $base-padding - 40;
+}
 
-	.to {
-		padding-right: 15px;
-	}
+.to {
+	padding-right: $base-padding - 35;
+}
 
-	select {
-		max-width: 250px;
-		width: 100%;
-		height: 50px;
-		border-radius: 10px;
-		font-size: 30px;
-		padding: 0px 10px;
-		cursor: pointer;
-	}
-	
-	.switch:active,
-	.switch {
-		font-size: 25px;
-		cursor: pointer;
-		color: white;
-		width: 50px;
-		height: 50px;
-		margin-top: 23px;
-		text-align: center;
-		align-items: center;
-		display: flex;
-		justify-content: center;
-	}
+select {
+	max-width: 250px;
+	width: 100%;
+	height: 50px;
+	border-radius: $base-border-radius - 5;
+	font-size: $base-font-size + 10;
+	padding: 0px 10px;
+	cursor: pointer;
+}
 
-	.switch:active {
+.switch {
+	@include switch-style;
+
+	&:active {
+		@include switch-style;
 		border: 1px solid #2196f3;
-		border-radius: 10px;
+		border-radius: $base-border-radius - 5;
 	}
+}
 
-	.send {
-		font-size: 30px;
-		width: 50px;
-		height: 50px;
-		border-radius: 10px;
-		cursor: pointer;
-		background-color: #fbbf08;
-		color: blue;
-		font-weight: 600;
-		margin-top: 23px;
-	}
+.send {
+	font-size: $base-font-size + 10;
+	width: 50px;
+	height: 50px;
+	border-radius: $base-border-radius - 5;
+	cursor: pointer;
+	background-color: #fbbf08;
+	color: blue;
+	font-weight: $base-font-weight - 100;
+	margin-top: $base-margin + 3;
 
-	.send:active {
+	&:active {
 		background-color: #2196f3;
 		color: white;
 		cursor: pointer;
 	}
+}
 
-	.result {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
-		padding-bottom: 50px;
-	}
-	
-	.buy-eur,
-	.sell-eur {
-		color: white;
-		font-size: 50px;
-	}
+.result {
+	@include flexbox-center;
+	align-items: center;
+	flex-wrap: wrap;
+	padding-bottom: $base-padding;
+}
+
+.buy-eur,
+.sell-eur {
+	@include buy-and-sell-eur-style;
+}
 </style>

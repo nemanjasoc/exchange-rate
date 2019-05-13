@@ -31,51 +31,41 @@ export default {
 }
 </script>
 
-<style scoped>
-	#main-content {
-		display: flex;
-		justify-content: center;
-	}
-	
-	.table-wrapper {
-		display: flex;
-		justify-content: center;
-		max-width: 900px;
-		width: 100%;
-		margin-top: 20px;
-		font-weight: 500;
-		background-color: #282537;
-		opacity: 0.9;
-		color: white;
-		border-radius: 15px;
-		overflow: hidden;
-	}
+<style lang="scss" scoped>
+@import 'src/scss/mixins';
+@import 'src/scss/variables';
 
-	table {
-		border-collapse: collapse;
-		max-width: 800px;
-		width: 100%;
-		font-size: 1rem;
-		color: white;
-		margin-bottom: 20px;
-	}
+#main-content {
+	@include flexbox-center; 
+}
 
-	th {
-		border-bottom: 4px solid #ddd;
-		color: #888;
-		font-size: 0.75rem;
-		padding: 10px 0px;
-	}
-	
-	.currency-value,
-	.currency-landmark {
-		display: table-cell;
-		padding: 10px 0px;
-		border-bottom: 1px solid #e9e9e9;
-		text-align: center;
-	}
+.table-wrapper {
+	@include base-width;
+	@include wrapper-style;
+	padding: 0 30px 20px 30px;
+	margin: $base-margin;
+}
 
-	.currency-landmark {
-		font-weight: 700;
-	}
+table {
+	@include base-width;
+	border-collapse: collapse;
+	font-size: 1rem;
+	color: white;
+}
+
+th {
+	border-bottom: 4px solid #ddd;
+	color: #888;
+	font-size: 0.75rem;
+	padding: $base-all-paddings;
+}
+
+.currency-value {
+	@include table-data-style;
+}
+
+.currency-landmark {
+	@include table-data-style;
+	font-weight: $base-font-weight;
+}
 </style>
