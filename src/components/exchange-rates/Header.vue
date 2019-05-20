@@ -48,7 +48,7 @@ export default {
 
 .main-header {
 	text-align: center;
-	padding: $base-padding - 10 0;
+	padding-bottom: $base-padding - 20;
 }
 
 .title {

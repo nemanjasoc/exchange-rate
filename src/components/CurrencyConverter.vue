@@ -8,7 +8,7 @@
 			<div class="inputs">
 				<div class="amount">
 					<label>Amount</label>
-					<input type="text" value="1" v-model="amount">
+					<input type="text" value="1" v-model="amount" @input='isSubmitted=false'>
 				</div>
 				<div class="from">
 					<label>From</label>
@@ -82,6 +82,9 @@ export default {
 			console.log("result: ", result)
 			this.result = result;
 		}
+	},
+	mounted() {
+		this.from = this.allRates[0];
 	}
 }
 </script>
