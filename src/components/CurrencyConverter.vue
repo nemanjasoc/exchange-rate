@@ -12,28 +12,28 @@
 				</div>
 				<div class="from">
 					<label>From</label>
-					<select v-if="multiply" v-model="from">
-						<option v-for="rate in allRates" :value='rate.value'>{{ rate.currency }}</option>
+					<select v-if="multiply" v-model="from" @change="isSubmitted=false">
+						<option v-for="rate in allRates" :value='rate'>{{ rate.currency }}</option>
 					</select>
 					<select v-else>
 						<option value='baseCurrency'>{{ baseCurrency }}</option>
 					</select>
 				</div>
-				<div class="switch" @click="multiply = !multiply"><i class="fas fa-exchange-alt"></i></div>
+				<div class="switch" @click="switchCalculation()"><i class="fas fa-exchange-alt"></i></div>
 				<div class="to">
 					<label>To</label>
 					<select v-if="multiply">
 						<option value='baseCurrency'>{{ baseCurrency }}</option>
 					</select>
-					<select v-else v-model="to">
-						<option v-for="rate in allRates" :value='rate.value'>{{ rate.currency }}</option>
+					<select v-else v-model="to" @change="isSubmitted=false">
+						<option v-for="rate in allRates" :value='rate'>{{ rate.currency }}</option>
 					</select>
 				</div>
 				<button type="button" class="send" @click="submit"><i class="fas fa-angle-right"></i></button>
 			</div>
 			<div class="result" v-if="isSubmitted">
-				<div class="buy-eur" v-if="multiply">{{ submit() }} EUR</div>
-				<div class="sell-eur" v-else>{{ amount }} EUR = {{ submit() }}</div>
+				<div class="buy-eur" v-if="multiply">{{ amount }} {{ from.currency }} = {{ result }} {{ baseCurrency }}</div>
+				<div class="sell-eur" v-else>{{ amount }} {{ baseCurrency }} = {{ result }} {{ to.currency }}</div>
 			</div>
 		</div>
 	</div>
@@ -55,22 +55,32 @@ export default {
 			to: '',
 			from: '',
 			multiply: true,
-			isSubmitted: false
+			isSubmitted: false,
+			result: ''
 		}
 	},
 	methods: {
+		switchCalculation() {
+			this.multiply = !this.multiply;
+			if (this.multiply) {
+				this.from = this.to;
+			} else {
+				this.to = this.from
+			}
+			this.isSubmitted = false;
+		},
 		submit() {
 			console.log('submit called to, from: ', this.from, this.to);
 			this.isSubmitted = true;
 			var result; 
 			if (this.multiply) {
-				result = (this.amount / this.from).toFixed(4);
+				result = (this.amount / this.from.value).toFixed(4);
 			}
 			else {
-				result = (this.amount * this.to).toFixed(4);
+				result = (this.amount * this.to.value).toFixed(4);
 			}
 			console.log("result: ", result)
-			return result;
+			this.result = result;
 		}
 	}
 }
