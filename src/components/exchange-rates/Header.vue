@@ -34,7 +34,7 @@ export default {
 	@include link;
 
 	&:hover {
-		color: #9e0144;
+		color: white;
 	}
 
 	&:before {
