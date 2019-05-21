@@ -35,11 +35,9 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		setAllRates: function (state, payload) {
-			console.log("prosledjeni payload u setAllRates: ", payload)
 			state.allRates = payload;
 		},
 		setRandomRatesObj: function(state, payload) {
-			console.log("payload prosledjeno: ", payload)
 			state.ratesObj = payload;
 		}
 	}

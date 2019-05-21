@@ -70,7 +70,6 @@ export default {
 			this.isSubmitted = false;
 		},
 		submit() {
-			console.log('submit called to, from: ', this.from, this.to);
 			this.isSubmitted = true;
 			var result; 
 			if (this.multiply) {
@@ -79,7 +78,6 @@ export default {
 			else {
 				result = (this.amount * this.to.value).toFixed(4);
 			}
-			console.log("result: ", result)
 			this.result = result;
 		}
 	},

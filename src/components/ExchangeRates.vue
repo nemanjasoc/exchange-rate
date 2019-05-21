@@ -14,7 +14,6 @@ import TableData from '../components/exchange-rates/TableData.vue';
 export default {
 	methods: {
 		changeCurrencies(newDate) {
-		console.log("prosledjeno newDate: ", newDate)
 		var helper = newDate === undefined ? 'latest' : newDate;
 
 		this.$http.get(`http://data.fixer.io/api/${helper}?access_key=74a5598978663ad685c92efa8f446b8e`)
